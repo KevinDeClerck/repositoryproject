@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Rainddrops - Startpagina</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="main.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>  
+</head>
+<body>
+    
+    <div id="Startscherm">   
+        <h1>Raindrops</h1>
+        <h2>Vang de regendruppels!</h2>
+        <blockquote id="tekst">
+            <br>
+            <br>
+            Je komt net thuis na een drukke dag werken en merkt dat er storm op komst is.<br>
+            Je herinnert je dat het de vorige keer binnen geregent had bij een zware storm.<br>
+            Je haast je dus naar binnen om schade in de woonkamer te vermijden.   
+            <br>
+            <br>
+            Klik op de druppels om ze op te vangen, zorg dat de woonkamer niet nat word!
+            <br>
+            <br>
+            Kies een moeilijkheid en druk op de pijl om naar binnen te gaan!
+            <br>
+            <br>
+        </blockquote>
+        
+         <img class="test" src="pijl.png" width="200px" height="150px">
+         
+        <div id="btn-group" style="width:100%">
+            <button class="Button" id="btn1" style="width:33.3%">Makkelijk</button>
+            <button class="Button" id="btn2" style="width:33.3%">Normaal</button>
+            <button class="Button" id="btn3" style="width:33.3%">Moeilijk</button>
+        </div>
+        
+        <p id="naam"></p>
+               
+    </div>
+         
+    <script>
+        
+        localStorage.setItem('moeilijkheid','normaal');
+        var naam = prompt("Vul je naam in: ");
+        localStorage.setItem('naamscore', naam);
+        
+        if(naam != null){
+            document.getElementById("naam").innerHTML = "Welkom " + naam + "!";
+        }
+    
+        $('.Button').click(function(e) {
+            $('.Button').not(this).removeClass('active');    
+        $(this).toggleClass('active');
+            e.preventDefault();
+        });
+        
+        $('#btn1').click(function(e){
+            localStorage.setItem('moeilijkheid', 'makkelijk');
+        });
+        
+        $('#btn2').click(function(e){
+            localStorage.setItem('moeilijkheid', 'normaal');
+        });
+        
+        $('#btn3').click(function(e){
+            localStorage.setItem('moeilijkheid', 'moeilijk');
+        });
+        
+        $('.test').click(function(e) {
+            window.location = "Spel.html";
+
+        });
+        
+        
+        
+
+    
+    </script>
+    
+    
+    
+    
+
+
+</body>
+</html>

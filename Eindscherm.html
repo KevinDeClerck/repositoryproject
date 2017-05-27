@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Eindscherm- Raindrops</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>  	
+    <script src="main.js"></script>
+</head>
+<body>  
+    <div id="Eindscherm">
+    <h1 id="uitslag"> Gewonnen / verloren </h1>
+    <h2 id="Eindscore"></h2>
+            
+    <table id="highscores">
+        <tbody>
+             <tr>
+                <th>Highscores</th>
+            </tr>
+        </tbody>
+    </table>              
+    <button id="opnieuw" onclick="window.location.href='Startscherm.html'">Opnieuw spelen</button>   
+    </div> 
+    
+    <script> 
+        var speluitslag = localStorage.getItem('spel');
+        var eindscore =parseInt(localStorage.getItem('resultaat'));
+        var scorenaam = localStorage.getItem('naamscore');
+    
+        if(speluitslag == 'verloren'){
+            document.getElementById('uitslag').innerHTML = "De woonkamer is helemaal nat, volgende keer beter!"
+            $("#Eindscherm").css("background-image", "url(verloren.gif)");      
+        }
+    
+        if(speluitslag == 'gewonnen'){
+            document.getElementById('uitslag').innerHTML = "Proficiat, de woonkamer is droog gebleven!"
+            $("#Eindscherm").css("background-image", "url(gewonnen.gif)");
+        }
+
+        $("#highscores").append('<tr><td id="naam"></td><td id="score"></td></tr>');
+
+        document.getElementById('naam').innerHTML = scorenaam;
+        document.getElementById('score').innerHTML = eindscore;
+        document.getElementById('Eindscore').innerHTML = "Je Score was : " + eindscore;
+    
+    </script>   
+</body>
+</html>
