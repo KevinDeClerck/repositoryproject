@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/> <!--320-->
     <title>Raindrops - game</title>
     <link rel="stylesheet" href="styles.css">
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -15,75 +16,85 @@
     <div class="score"><p>Score : <span> 0 </span></p></div>
     <div class="levens"><p>Levens: <span>6</span> </p></div>  
     
-    <script> 
-    
-    $(document).ready(function(e) {
-        var counter = 0;
-        var levens = 6;
-        var score = 0;    
-        var moeilijkheidsgraad = localStorage.getItem('moeilijkheid');
-           
-        setInterval(AddDiv, 800);
+    <script>
+    /*jslint browser: true*/
+    /*global $, jQuery, alert*/
+    /*jslint vars: true, plusplus: true, devel: true, nomen: true, indent: 4, maxerr: 50 */
+    /*global define */
         
-        function AddDiv(){
+    "use strict";
+
+    
+    
+    $(document).ready(function (e) {
+        var counter = 0,
+            levens = 6,
+            score = 0,
+            moeilijkheidsgraad = localStorage.getItem('moeilijkheid');
+                
+        function AddDiv() {
             console.log("x");
             counter++;
             var snelheid;
             
-            if(moeilijkheidsgraad == 'makkelijk'){
+            if (moeilijkheidsgraad === 'makkelijk') {
                 snelheid = Math.floor((Math.random() * 6000) + 4000);
             }
                  
-            if(moeilijkheidsgraad == 'normaal'){
+            if (moeilijkheidsgraad === 'normaal') {
                 snelheid = Math.floor((Math.random() * 4000) + 2500);
             }
             
-            if(moeilijkheidsgraad == 'moeilijk'){
+            if (moeilijkheidsgraad === 'moeilijk') {
                 snelheid = Math.floor((Math.random() * 3000) + 1000);
             }
                       
-            let x_number = Math.floor((Math.random() * ($(document).width() - 300) ) + 1);
+            var x_number = Math.floor((Math.random() * ($(document).width() - 300)) + 1);
             
-            let Div = {
+            if ($(window).width() <= 1024) {
+                x_number = Math.floor((Math.random() * ($(document).width() - 100)) + 1);
+            }
+            
+            var Div = {
                 number: counter,
                 xpos: x_number
-            }       
+            };
             
             $(".score span").html(" " + score);
             $(".levens span").html(" " + levens);
-            $("#spel").prepend('<div unselectable="on" id="druppel' + Div.number + '" class="druppel"><img src="druppel.png" alt="" width="80px" height="100px" draggable="false"></div>');
+            $("#spel").prepend('<div unselectable="on" id="druppel' + Div.number + '" class="druppel"><img src="druppel.png" alt="" width="80px" height="100px" draggable="false"><\/div>');
             $('#druppel' + Div.number).css('left', Div.xpos);
             var hoogte = "+=" + ($(window).height() - $("#druppel" + Div.number).height() - 150);
-            $('#druppel' + Div.number).animate({  
+            $('#druppel' + Div.number).animate({
                 top: hoogte
-            }, snelheid, function(){
-            $('#druppel' + Div.number).hide();                
+            }, snelheid, function () {
+                $('#druppel' + Div.number).hide();
                 
-                if($("#druppel" + Div.number).is(':hidden')){
+                if ($("#druppel" + Div.number).is(':hidden')) {
                     levens = levens - 1;
-                }       
+                }
                 
-                if (levens <= 0){
-                window.location.replace("Eindscherm.html");
-                localStorage.setItem('spel','verloren');
+                if (levens <= 0) {
+                    window.location.replace("Eindscherm.html");
+                    localStorage.setItem('spel', 'verloren');
                 }
                 
             });
             
-            $("#druppel" + Div.number).on('click', function(){
+            $("#druppel" + Div.number).on('click', function () {
                 $(this).remove();
-                score = score +100;
-            })   
+                score = score + 100;
+            });
                   
-            if(score >= 5000)
-            {
+            if (score >= 5000) {
                 window.location.replace("Eindscherm.html");
-                localStorage.setItem('spel','gewonnen');
+                localStorage.setItem('spel', 'gewonnen');
             }
             
-            localStorage.setItem('resultaat',score);      
-        }   
-    });  
+            localStorage.setItem('resultaat', score);
+        }
+        setInterval(AddDiv, 800);
+    });
     </script>
     
 </body>
